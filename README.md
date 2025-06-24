@@ -9,11 +9,9 @@ Taster Day Activity
 -	Templates
 
 ## Getting started:
-Some of you will be familiar with the Epic Launcher from playing Fortnite… But we're going to be 
-using the engine that is used to make Fortnite, Unreal Engine. It has also been used for many 
-other games, such as Unreal Tournament, Enslaved: Odyssey to the West, Borderlands 2, Spec 
-Ops: The Line, Gears of War 3, Batman Arkham City, XCOM: Enemy Unknown, Bioshock… and of 
-course PUBG and Fortnite!
+Some of you will be familiar with the Epic Launcher from playing Fortnite… But we're going to be using the engine that is used to make Fortnite, Unreal Engine. It has also been used for many other games, such as Unreal Tournament, Enslaved: Odyssey to the West, Borderlands 2, Spec Ops: The Line, Gears of War 3, Batman Arkham City, XCOM: Enemy Unknown, Bioshock… and of course PUBG and Fortnite!
+
+![Turret on car](docs/images/epiclauncher.png)
 
 For those attempting this at home, to begin, download the epic launcher from www.epicgames.com 
 and install the client. Once loaded, find the 'Unreal Engine' option on the left and install the 
@@ -56,12 +54,18 @@ Discussion: use of other people work
 -	Commercial (cost/benefit analysis)
 -	Technical challenges (poly counts, working, optimised)
 
+![Turret on car](docs/images/fabturret.png)
+
 In the meshes subfolder, you will see several files (note the excellent naming convention!) – we are 
 interested today in the skeletal mesh
+
+![Turret on car](docs/images/cbturret.png)
  
 We're going to add this is a component of the main car pawn - already programmed to be driveable 
 – this is in the VehicleTemplate/Blueprints folder called 'StarterWheeledVehiclePawnBP'. We will 
 need to use the component type 'PoseableMesh' – why not skeletal mesh?
+
+![Turret on car](docs/images/addposeablemesh.png)
  
 Once the component is added, set it to the 'SKM_scifiturret' skeletal mesh, scale and position 
 somewhere near the roof of the car. I used a uniform scaling of 0.5 with x/y/z of -33/0/116 but feel 
@@ -74,10 +78,14 @@ Let's pause here for a moment – if we test the car we can drive the car around
 Next is moving the turret. For this we need to know the name of the bone we're going to rotate. If 
 you open the skeletal mesh you can see the bone names on the right… the one we want is called 
 'bn_head'. 
+
+![Turret on car](docs/images/turretbones.png)
   
 While we're here, let's add a socket for later. Right click 'bn_headbarrelend' and choose 'add 
 socket'. You can name it if you wish, but I left the default 'bn_headbarrelendSocket'. Move the 
 socket slightly away from the end of the barrel… why?
+
+![Turret on car](docs/images/turretsocket.png)
  
 For turret rotation, we're not going to follow best practice, we're going to build it as quickly as 
 possible – don't do this in industry!
@@ -85,6 +93,8 @@ Using event tick is terrible for frame rate (not independent, running all the ti
 rotating the bone rather than animation control. Remember the mantra here though… we're rapid 
 prototyping so we can get this in front of a publisher – refactoring, efficient, optimisation & best 
 practice can come later once we have the money!
+
+![Turret on car](docs/images/turretrotation.png)
  
 If you test the game now you should be able to see the turret rotating with the mouse, i.e. the 
 camera spring arm and turret rotation are linked.
@@ -96,12 +106,19 @@ This is a good time to consider the ongoing changes Epic make to UE5… until re
 the input system for keyboard/mouse control, but they've now implemented the Enhanced Input 
 System. This project uses the older input system so let's go there and add a left mouse click called 
 'FireWeapon'.
+
+![Turret on car](docs/images/input.png)
  
 Back in the SterterWheeledVehiclePawnBP we can add the code to fire the projectile
+
+![Turret on car](docs/images/fire.png)
  
 For fun, I also boosted the 'impulse' effect in the BP_FirstPersonProjectile blueprint – see what 
 number works best for you!
 
----
-v.250623.car
-© Dr Duke Gledhill 
+![Turret on car](docs/images/impulseprojectile.png)
+
+
+The End
+
+Copyright Dr Duke Gledhill
