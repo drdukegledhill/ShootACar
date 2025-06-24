@@ -1,0 +1,107 @@
+# Shoot a Car - Turret
+Taster Day Activity
+
+## Goals:
+-	A quick overview of the UE5 engine and the interface
+-	Load the game template (either fresh or from previous session)
+-	Rapid Prototyping using available assets
+-	Marketplace
+-	Templates
+
+## Getting started:
+Some of you will be familiar with the Epic Launcher from playing Fortnite… But we're going to be 
+using the engine that is used to make Fortnite, Unreal Engine. It has also been used for many 
+other games, such as Unreal Tournament, Enslaved: Odyssey to the West, Borderlands 2, Spec 
+Ops: The Line, Gears of War 3, Batman Arkham City, XCOM: Enemy Unknown, Bioshock… and of 
+course PUBG and Fortnite!
+
+For those attempting this at home, to begin, download the epic launcher from www.epicgames.com 
+and install the client. Once loaded, find the 'Unreal Engine' option on the left and install the 
+engine. For this project, 5.4 was used, but later versions should still work ok. For those on campus, 
+Unreal should already be up and running and ready to go.
+
+Take a have a look around the interface first. If you've not seen it before it can be quite 
+overwhelming. I've put together an introductory video showing you around the interface and what 
+all the buttons do at https://youtu.be/CmbGUIdz7GU if it helps. NB: The video is for UE4 but most 
+things are more or less the same.
+
+## Shooting the cars:
+
+Working with the other session (either before or after), we are going to add a turret to the racing 
+car so we can shoot the cars chasing us… to comical effect!
+
+You will be working with the project 'ShootACar_blank'. 
+
+With the project loaded let's think about a plan:
+1.	We'll need a turret – thanks marketplace/Fab
+2.	We'll need to be able to move the turret - using the bones in the turret
+3.	We'll need a projectile – thanks first person template!
+4.	We'll need to be able to fire the projectile - we need some input and the turret will need a 
+socket
+5.	We want the projectile to affect the car - use the force!
+6.	Possible gameplay addons
+a.	Effects
+b.	Projectile alterations
+c.	Scoring/UI
+d.	Sound 
+
+### Turret
+There is a folder in the project called SciFiturretasset with everything we need for this part. The 
+turret is from the marketplace (now called Fab). This is a free asset for anyone to use - 
+https://www.fab.com/listings/4abb6121-4d71-4b67-8e61-b83b7b3e2d10 - sometimes in rapid 
+prototyping, using ready made assets is key to the 'rapid' part!
+
+Discussion: use of other people work
+-	Legal/Ethics (making money from free assets, licencing etc)
+-	Commercial (cost/benefit analysis)
+-	Technical challenges (poly counts, working, optimised)
+
+In the meshes subfolder, you will see several files (note the excellent naming convention!) – we are 
+interested today in the skeletal mesh
+ 
+We're going to add this is a component of the main car pawn - already programmed to be driveable 
+– this is in the VehicleTemplate/Blueprints folder called 'StarterWheeledVehiclePawnBP'. We will 
+need to use the component type 'PoseableMesh' – why not skeletal mesh?
+ 
+Once the component is added, set it to the 'SKM_scifiturret' skeletal mesh, scale and position 
+somewhere near the roof of the car. I used a uniform scaling of 0.5 with x/y/z of -33/0/116 but feel 
+free to place as you wish… maybe even on the bonnet!
+
+![Turret on car](docs/images/turretoncar.png)
+ 
+Let's pause here for a moment – if we test the car we can drive the car around with a turret on top 
+– but if doesn't move and there is no firing.
+Next is moving the turret. For this we need to know the name of the bone we're going to rotate. If 
+you open the skeletal mesh you can see the bone names on the right… the one we want is called 
+'bn_head'. 
+  
+While we're here, let's add a socket for later. Right click 'bn_headbarrelend' and choose 'add 
+socket'. You can name it if you wish, but I left the default 'bn_headbarrelendSocket'. Move the 
+socket slightly away from the end of the barrel… why?
+ 
+For turret rotation, we're not going to follow best practice, we're going to build it as quickly as 
+possible – don't do this in industry!
+Using event tick is terrible for frame rate (not independent, running all the time). We'll also be 
+rotating the bone rather than animation control. Remember the mantra here though… we're rapid 
+prototyping so we can get this in front of a publisher – refactoring, efficient, optimisation & best 
+practice can come later once we have the money!
+ 
+If you test the game now you should be able to see the turret rotating with the mouse, i.e. the 
+camera spring arm and turret rotation are linked.
+Next let's think about something to fire. In the same subfolder 'SciFiturretasset' I have already 
+added 2 files from the 'firstpersontemplate' called 'BP_FirstPersonProjectile' and 
+'FirstPersonProjectileMesh'. These are almost all we need to shoot back! First though, let's add 
+the left mouse click as our fire button.
+This is a good time to consider the ongoing changes Epic make to UE5… until recently we used 
+the input system for keyboard/mouse control, but they've now implemented the Enhanced Input 
+System. This project uses the older input system so let's go there and add a left mouse click called 
+'FireWeapon'.
+ 
+Back in the SterterWheeledVehiclePawnBP we can add the code to fire the projectile
+ 
+For fun, I also boosted the 'impulse' effect in the BP_FirstPersonProjectile blueprint – see what 
+number works best for you!
+
+---
+v.250623.car
+© Dr Duke Gledhill 

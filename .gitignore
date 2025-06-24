@@ -1,0 +1,36 @@
+# Unreal Engine generated files
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.VC.db
+*.sln
+*.suo
+*.user
+*.userprefs
+*.opensdf
+*.sdf
+
+# XCode
+*.xcodeproj
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Misc
+*.pdb
+*.exe
+*.dll
+*.so
+*.dylib
+*.log
+
+# Per-user config
+Config/DefaultEditorPerProjectUserSettings.ini 
