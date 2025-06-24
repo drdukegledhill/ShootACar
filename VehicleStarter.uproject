@@ -1,0 +1,35 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{44CC832D-40C9-F044-B544-D688B851B183}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "VehicleStarter",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"ChaosVehicles",
+				"Engine",
+				"AIModule"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ChaosVehiclesPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "RawInput",
+			"Enabled": true
+		},
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
