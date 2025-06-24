@@ -1,124 +1,114 @@
-# Shoot a Car - Turret
-Taster Day Activity
+# Shoot-a-Car: A Turret-Shooting Taster in Unreal Engine 5
 
-## Goals:
--	A quick overview of the UE5 engine and the interface
--	Load the game template (either fresh or from previous session)
--	Rapid Prototyping using available assets
--	Marketplace
--	Templates
+Welcome! This taster session is designed to give you a hands-on introduction to game development with Unreal Engine 5. You will learn the basics of the engine, how to work with existing assets, and how to implement simple game mechanics.
 
-## Getting started:
-Some of you will be familiar with the Epic Launcher from playing Fortnite… But we're going to be using the engine that is used to make Fortnite, Unreal Engine. It has also been used for many other games, such as Unreal Tournament, Enslaved: Odyssey to the West, Borderlands 2, Spec Ops: The Line, Gears of War 3, Batman Arkham City, XCOM: Enemy Unknown, Bioshock… and of course PUBG and Fortnite!
+![A car with a turret mounted on its roof](docs/images/turretoncar.png)
 
-![Turret on car](docs/images/epiclauncher.png)
+## Session Goals
 
-For those attempting this at home, to begin, download the epic launcher from www.epicgames.com 
-and install the client. Once loaded, find the 'Unreal Engine' option on the left and install the 
-engine. For this project, 5.4 was used, but later versions should still work ok. For those on campus, 
-Unreal should already be up and running and ready to go.
+By the end of this activity, you will have:
+- A foundational understanding of the Unreal Engine 5 interface.
+- Experience in loading and working with a game template.
+- An appreciation for rapid prototyping using pre-existing assets.
+- Familiarity with the Unreal Engine Marketplace (now Fab) and project templates.
 
-Take a have a look around the interface first. If you've not seen it before it can be quite 
-overwhelming. I've put together an introductory video showing you around the interface and what 
-all the buttons do at https://youtu.be/CmbGUIdz7GU if it helps. NB: The video is for UE4 but most 
-things are more or less the same.
+## 1. Getting Started with Unreal Engine
 
-## Shooting the cars:
+Unreal Engine is the powerhouse behind many of today's most popular games, from *Fortnite* and *PUBG* to critically acclaimed titles like *The Last of Us Part I* and *Final Fantasy VII Remake*.
 
-Working with the other session (either before or after), we are going to add a turret to the racing 
-car so we can shoot the cars chasing us… to comical effect!
+![The Epic Games Launcher](docs/images/epiclauncher.png)
 
-You will be working with the project 'ShootACar_blank'. 
+**Installation:**
+- **At home:** Download and install the Epic Games Launcher from [epicgames.com](https://www.epicgames.com). In the launcher, navigate to the "Unreal Engine" tab and install version 5.4 or later.
+- **On campus:** Unreal Engine is already installed and ready to go.
 
-With the project loaded let's think about a plan:
-1.	We'll need a turret – thanks marketplace/Fab
-2.	We'll need to be able to move the turret - using the bones in the turret
-3.	We'll need a projectile – thanks first person template!
-4.	We'll need to be able to fire the projectile - we need some input and the turret will need a 
-socket
-5.	We want the projectile to affect the car - use the force!
-6.	Possible gameplay addons
-a.	Effects
-b.	Projectile alterations
-c.	Scoring/UI
-d.	Sound 
+**Engine Interface:**
+The Unreal Engine interface can seem complex at first. For a helpful overview, you can watch this introductory video. Although it was made for Unreal Engine 4, most of the concepts are still applicable in UE5.
+- [Introduction to the Unreal Engine Interface](https://youtu.be/CmbGUIdz7GU)
 
-### Turret
-There is a folder in the project called SciFiturretasset with everything we need for this part. The 
-turret is from the marketplace (now called Fab). This is a free asset for anyone to use - 
-https://www.fab.com/listings/4abb6121-4d71-4b67-8e61-b83b7b3e2d10 - sometimes in rapid 
-prototyping, using ready made assets is key to the 'rapid' part!
+## 2. Project Overview: Adding a Turret to a Car
 
-Discussion: use of other people work
--	Legal/Ethics (making money from free assets, licencing etc)
--	Commercial (cost/benefit analysis)
--	Technical challenges (poly counts, working, optimised)
+In this project, we're going to modify a pre-built vehicle template by adding a fully functional turret. The goal is to create a simple, fun mechanic where you can shoot at other cars.
 
-![Turret on car](docs/images/fabturret.png)
+We will be working with the `ShootACar_blank` project.
 
-In the meshes subfolder, you will see several files (note the excellent naming convention!) – we are 
-interested today in the skeletal mesh
+### Our Plan:
+1.  **Find a Turret:** We'll use a pre-made asset from the marketplace.
+2.  **Animate the Turret:** We'll use the turret's skeletal bones to allow it to move.
+3.  **Create a Projectile:** We'll borrow a projectile from the First-Person template.
+4.  **Implement Firing:** We'll set up input controls to fire the projectile from a socket on the turret.
+5.  **Add Physics:** We'll make the projectile apply a force to any car it hits.
+6.  **(Optional) Further Enhancements:**
+    -   Add visual effects (VFX) for firing and impacts.
+    -   Modify the projectile's properties.
+    -   Implement a scoring system or user interface (UI).
+    -   Add sound effects.
 
-![Turret on car](docs/images/cbturret.png)
- 
-We're going to add this is a component of the main car pawn - already programmed to be driveable 
-– this is in the VehicleTemplate/Blueprints folder called 'StarterWheeledVehiclePawnBP'. We will 
-need to use the component type 'PoseableMesh' – why not skeletal mesh?
+## 3. Implementation Steps
 
-![Turret on car](docs/images/addposeablemesh.png)
- 
-Once the component is added, set it to the 'SKM_scifiturret' skeletal mesh, scale and position 
-somewhere near the roof of the car. I used a uniform scaling of 0.5 with x/y/z of -33/0/116 but feel 
-free to place as you wish… maybe even on the bonnet!
+### The Turret Asset
 
-![Turret on car](docs/images/turretoncar.png)
- 
-Let's pause here for a moment – if we test the car we can drive the car around with a turret on top 
-– but if doesn't move and there is no firing.
-Next is moving the turret. For this we need to know the name of the bone we're going to rotate. If 
-you open the skeletal mesh you can see the bone names on the right… the one we want is called 
-'bn_head'. 
+The project already includes a "Sci-Fi Turret" asset, originally from the Unreal Engine Marketplace. You can find it in the `Content/SciFiturretasset` folder.
 
-![Turret on car](docs/images/turretbones.png)
-  
-While we're here, let's add a socket for later. Right click 'bn_headbarrelend' and choose 'add 
-socket'. You can name it if you wish, but I left the default 'bn_headbarrelendSocket'. Move the 
-socket slightly away from the end of the barrel… why?
+> #### Discussion Point: Using Pre-made Assets
+> In professional game development, using pre-made assets is a common practice, especially for rapid prototyping. This involves considering:
+> - **Legal & Ethical:** Licensing agreements and whether you can use free assets in a commercial product.
+> - **Commercial:** The cost-benefit of buying assets versus creating them in-house.
+> - **Technical:** Ensuring assets are well-optimised (e.g., polygon count) and technically sound.
 
-![Turret on car](docs/images/turretsocket.png)
- 
-For turret rotation, we're not going to follow best practice, we're going to build it as quickly as 
-possible – don't do this in industry!
-Using event tick is terrible for frame rate (not independent, running all the time). We'll also be 
-rotating the bone rather than animation control. Remember the mantra here though… we're rapid 
-prototyping so we can get this in front of a publisher – refactoring, efficient, optimisation & best 
-practice can come later once we have the money!
+![The Fab marketplace page for the turret asset](docs/images/fabturret.png)
 
-![Turret on car](docs/images/turretrotation.png)
- 
-If you test the game now you should be able to see the turret rotating with the mouse, i.e. the 
-camera spring arm and turret rotation are linked.
-Next let's think about something to fire. In the same subfolder 'SciFiturretasset' I have already 
-added 2 files from the 'firstpersontemplate' called 'BP_FirstPersonProjectile' and 
-'FirstPersonProjectileMesh'. These are almost all we need to shoot back! First though, let's add 
-the left mouse click as our fire button.
-This is a good time to consider the ongoing changes Epic make to UE5… until recently we used 
-the input system for keyboard/mouse control, but they've now implemented the Enhanced Input 
-System. This project uses the older input system so let's go there and add a left mouse click called 
-'FireWeapon'.
+### Adding the Turret to the Car
 
-![Turret on car](docs/images/input.png)
- 
-Back in the SterterWheeledVehiclePawnBP we can add the code to fire the projectile
+We'll add the turret as a component to the player's car. The car is a Blueprint asset located at `Content/VehicleTemplate/Blueprints/StarterWheeledVehiclePawnBP`.
 
-![Turret on car](docs/images/fire.png)
- 
-For fun, I also boosted the 'impulse' effect in the BP_FirstPersonProjectile blueprint – see what 
-number works best for you!
+1.  Open the `StarterWheeledVehiclePawnBP` Blueprint.
+2.  Add a **Poseable Mesh** component to the Blueprint. *Challenge: Why use a Poseable Mesh instead of a Skeletal Mesh?*
+3.  In the Details panel for the new component, set the **Skeletal Mesh** to `SKM_scifiturret`.
+4.  Position and scale the turret on the car's roof. A good starting point is `Location: (-33, 0, 116)` and `Scale: (0.5, 0.5, 0.5)`.
 
-![Turret on car](docs/images/impulseprojectile.png)
+![Adding the poseable mesh component in the Blueprint editor](docs/images/addposeablemesh.png)
 
+### Animating the Turret
 
-The End
+To make the turret move, we need to rotate its bones.
 
-Copyright Dr Duke Gledhill
+1.  Open the `SKM_scifiturret` Skeletal Mesh asset to inspect its skeleton. The bone we want to rotate is named `bn_head`.
+2.  While the Skeletal Mesh is open, create a **Socket** to define where projectiles will spawn from. Right-click on the `bn_headbarrelend` bone and select "Add Socket". You can leave the default name. Move the socket so it's positioned just in front of the barrel. *Challenge: Why is it important to place the socket slightly away from the mesh?*
+
+![The turret's bone hierarchy](docs/images/turretbones.png)
+![The turret socket at the end of the barrel](docs/images/turretsocket.png)
+
+Now, let's add the rotation logic to the `StarterWheeledVehiclePawnBP` Event Graph.
+
+> **Note on Best Practices:** For this taster, we're using the `Event Tick` to quickly prototype the turret's rotation. In a real-world project, this would be inefficient. A better approach would be to use a more optimised animation system and event-driven controls.
+
+![The Blueprint graph for turret rotation](docs/images/turretrotation.png)
+
+### Firing Projectiles
+
+We'll use a pre-made projectile from the First-Person template, which is already included in the `SciFiturretasset` folder.
+
+First, we need to set up an input for firing. This project uses the older input system.
+1.  Go to **Project Settings > Engine > Input**.
+2.  Add a new **Action Mapping** named `FireWeapon` and assign it to the **Left Mouse Button**.
+
+![The input settings for the fire weapon action](docs/images/input.png)
+
+Now, let's add the firing logic to the `StarterWheeledVehiclePawnBP` Event Graph.
+
+![The Blueprint graph for firing the projectile](docs/images/fire.png)
+
+Finally, for a bit of fun, you can increase the impact force of the projectile.
+1.  Open the `BP_FirstPersonProjectile` Blueprint.
+2.  Find the `Impulse` variable or the relevant node in the graph and increase its value. Experiment to see what works best!
+
+![The impulse setting in the projectile Blueprint](docs/images/impulseprojectile.png)
+
+## That's a Wrap!
+
+You've now successfully added a functional turret to a car in Unreal Engine. Feel free to continue experimenting with the project and exploring what else you can create.
+
+---
+*v.250623.car*
+*© Dr Duke Gledhill*
